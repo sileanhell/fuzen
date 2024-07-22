@@ -55,8 +55,8 @@ server.listen();
 
 ### 👷 Advanced examples
 
-You can see the examples in our tests:
-[tests](https://github.com/sileanhell/fuzen/tree/main/tests)
+You can see the examples in our 
+[tests](https://github.com/sileanhell/fuzen/tree/main/tests).
 
 ## 🤝 Contributing
 
