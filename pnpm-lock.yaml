@@ -8,19 +8,16 @@ importers:
 
   .:
     dependencies:
-      '@types/websocket':
-        specifier: ^1.0.10
-        version: 1.0.10
       chalk:
         specifier: 4.1.2
         version: 4.1.2
-      websocket:
-        specifier: ^1.0.35
-        version: 1.0.35
     devDependencies:
       '@types/node':
         specifier: ^20.14.9
         version: 20.14.11
+      '@types/websocket':
+        specifier: ^1.0.10
+        version: 1.0.10
       nodemon:
         specifier: ^3.1.4
         version: 3.1.4
@@ -36,6 +33,9 @@ importers:
       vitest:
         specifier: ^2.0.3
         version: 2.0.3(@types/node@20.14.11)
+      websocket:
+        specifier: ^1.0.35
+        version: 1.0.35
 
 packages:
 
