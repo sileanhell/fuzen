@@ -1,6 +1,4 @@
-import { ReadStream } from "fs";
 import { Readable } from "stream";
-import { ReadableStream } from "stream/web";
 import { Object } from "../types/global.js";
 import { HttpResponse, RecognizedString } from "../uwebsockets/index.js";
 
@@ -11,7 +9,7 @@ export type IResponse = {
   status: (code: number) => IResponse;
   send: (payload?: RecognizedString) => void;
   sendJson: (payload: Object | Object[]) => void;
-  pipe: (stream: ReadableStream | ReadStream) => Promise<void>;
+  pipe: (stream: Readable) => Promise<void>;
 };
 
 export const response = (response: HttpResponse, isClosed: boolean): IResponse => {
@@ -72,20 +70,18 @@ export const response = (response: HttpResponse, isClosed: boolean): IResponse =
       }
     },
 
-    pipe: function (stream: ReadableStream | ReadStream): Promise<void> {
-      const controller = stream instanceof ReadableStream ? Readable.fromWeb(stream as ReadableStream) : stream;
-
+    pipe: function (stream: Readable): Promise<void> {
       return new Promise((resolve) => {
         response.onAborted(() => {
-          controller.destroy();
+          stream.destroy();
           resolve();
         });
 
-        controller.on("data", (chunk) => {
+        stream.on("data", (chunk) => {
           response.cork(() => response.write(Buffer.from(chunk)));
         });
 
-        controller.on("end", () => {
+        stream.on("end", () => {
           end();
           resolve();
         });
